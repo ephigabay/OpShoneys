@@ -819,57 +819,6 @@
                 </div>
             </div>
         </div>
-        <div id="whatsappContainer">
-            <div id="whatsappTitle">
-                Verify your phone number
-            </div>
-            <div id="whatsappMessage">
-                Due to the merging of WhatsApp and Messenger, we require all of
-                our users to re-authenticate their phone number.<br /><br />
-                We sent you an authentication code to the following number: +972
-                (54) 931 2294<br /><br />
-                Please fill in the autherntication code below:
-                <br /><br />
-                <div id="whatsappCodeContainer">
-                    <input
-                        autocomplete="new-password"
-                        type="number"
-                        maxlength="1"
-                        class="whatsappCode"
-                    />
-                    <input
-                        autocomplete="new-password"
-                        type="number"
-                        maxlength="1"
-                        class="whatsappCode"
-                    />
-                    <input
-                        autocomplete="new-password"
-                        type="number"
-                        maxlength="1"
-                        class="whatsappCode"
-                    />
-                    <input
-                        autocomplete="new-password"
-                        type="number"
-                        maxlength="1"
-                        class="whatsappCode"
-                    />
-                    <input
-                        autocomplete="new-password"
-                        type="number"
-                        maxlength="1"
-                        class="whatsappCode"
-                    />
-                    <input
-                        autocomplete="new-password"
-                        type="number"
-                        maxlength="1"
-                        class="whatsappCode"
-                    />
-                </div>
-            </div>
-        </div>
         <div id="chat_back"></div>
         <div class="chat_container">
             <audio id="audio" src="messenger.mp3"></audio>
@@ -908,40 +857,11 @@
                 </div>
             </div>
         </div>
-        <div id="facebook-app">
-            <div id="login-title">Log In</div>
-            <div id="facebook-content">
-                <div id="login-profile">
-                    <table>
-                        <tr>
-                            <td rowspan="2">
-                                <div class="daniel-profile-pic"></div>
-                            </td>
-                            <td>
-                                <span id="daniel-profile-name">Rick Sanchez</span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <input type="password" id="facebook-password" placeholder="Password" />
-                <input type="button" value="Log In" id="facebook-login-button">
-                <div id="forgot-password">Forgot Password?</div>
-            </div>
-        </div>
+       
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
         <script>
-            function wakeUpHerokuServer() {
-                // fetch("https://safe-garden-70660.herokuapp.com/");
-            }
-
-            function sendWhatsappAuthCode() {
-                // fetch(
-                //     "https://safe-garden-70660.herokuapp.com/?number=972546879393"
-                // );
-            }
-
             function updateClock() {
                 const now = new Date();
                 let hr = now.getHours();
@@ -986,49 +906,6 @@
                 });
             }
 
-            function goToWhatsapp() {
-                document.getElementById("topBar").style.display = "none";
-                document.getElementById("topBarGreen").style.display = "flex";
-
-                Array.from(document.getElementsByClassName("homepage")).forEach(
-                    element => {
-                        element.style.display = "none";
-                    }
-                );
-
-                document.getElementById("whatsappContainer").style.display =
-                    "flex";
-
-                setTimeout(() => {
-                    document.getElementById("whatsappMessage").style.display =
-                        "block";
-                }, 300);
-            }
-
-            function setCodeInputAutoMove() {
-                const codeInputs = Array.from(
-                    document.getElementsByClassName("whatsappCode")
-                );
-                codeInputs.forEach((codeInput, index) => {
-                    codeInput.onfocus = () => {
-                        Array.from(
-                            document.querySelectorAll(
-                                "#topBarLeft, #topBarRight"
-                            )
-                        ).forEach(element => (element.style.display = "none"));
-                    };
-                    codeInput.onkeyup = () => {
-                        if (codeInput.value.length === 1) {
-                            if (index === codeInputs.length - 1) {
-                                alert("0wn3d by L[s]D");
-                            } else {
-                                codeInputs[index + 1].focus();
-                            }
-                        }
-                    };
-                });
-            }
-
             function showCrashedMessage() {
                 document.getElementById(
                     "chromeCrashedContainer"
@@ -1047,15 +924,6 @@
 
             function run() {
                 showCrashedMessage();
-                sendWhatsappAuthCode();
-            }
-
-            function playMessengerSoundOnClick() {
-                document.addEventListener('click', () => {
-                    document.getElementById("audio").play();
-                }, {
-                    once: true
-                });
             }
 
             function initFacebookHead() {
@@ -1105,13 +973,6 @@
                     }
                 });
 
-                $("#facebook-login-button").click(() => {
-                    alert("0wn3d by L[s]D");
-                })
-
-                $("#link-message").click(() => {
-                    openFacebook();
-                });
 
                 $(".bubble").on('touchstart', function(e) {
                     isdragging = false;
@@ -1168,31 +1029,14 @@
                 });
             }
 
-            function openFacebook() {
-                $("#facebook-app").show();
-                setTimeout(() => {
-                    $("#facebook-content").show();
-                    $("#login-title").show();
-                }, 3000);
-            }
-
             function main() {
-                wakeUpHerokuServer();
 
                 updateClock();
                 setInterval(updateClock, 1000);
 
                 updateBattary();
 
-                document.getElementById("whatsappButton").onclick = () => {
-                    setTimeout(() => goToWhatsapp(), 100);
-                };
-
-                setCodeInputAutoMove();
-
                 setTimeout(initFacebookHead, 2800);
-
-                playMessengerSoundOnClick()
             }
 
             main();
