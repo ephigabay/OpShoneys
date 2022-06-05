@@ -17,30 +17,18 @@
   border-radius: 30px;
 }
     </style>
+
+<button id="lockButton">Start!</button>
+
 <script>
 
   function goFullscreen() {
-    // Must be called as a result of user interaction to work
-    mf = document.getElementById("main_frame");
-    mf.webkitRequestFullscreen();
-    mf.style.display = "";
-    setTimeout(() => mf.contentWindow.run(), 500);
-    
+    document.documentElement.webkitRequestFullscreen();  
   }
 
-  function fullscreenChanged() {
-    if (document.webkitFullscreenElement == null) {
-      mf = document.getElementById("main_frame");
-      mf.style.display = "none";
-    }
-  }
-
-  document.onwebkitfullscreenchange = fullscreenChanged;
-  document.documentElement.onclick = goFullscreen;
-  document.onkeydown = goFullscreen;
+  document.getElementById("lockButton").addEventListener("click", goFullscreen);
 
 </script>
-<iframe id="main_frame" src="lock.html" style="width: 0; height: 0; border: none;"></iframe>
-<button id="lockButton">Start!</button>
+
 </body>
 </html>
